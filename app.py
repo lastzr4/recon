@@ -31,20 +31,18 @@ st.set_page_config(
 st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
 
-class _InMemoryFile:
+class _InMemoryFile(io.BytesIO):
     """Lightweight file-like wrapper so extraction functions can be cached
-    on plain bytes rather than an UploadedFile object."""
+    on plain bytes rather than an UploadedFile object.
+
+    Subclasses io.BytesIO (rather than hand-rolling read/seek) so it also
+    supports .tell() and correct partial-read semantics, both of which
+    pandas.ExcelFile/openpyxl rely on internally when parsing .xlsx files.
+    """
 
     def __init__(self, data: bytes, name: str):
-        self._data = data
+        super().__init__(data)
         self.name = name
-        self._pos = 0
-
-    def read(self, *_args, **_kwargs) -> bytes:
-        return self._data
-
-    def seek(self, pos: int = 0, *_args, **_kwargs) -> None:
-        self._pos = pos
 
 
 @st.cache_data(show_spinner=False)
