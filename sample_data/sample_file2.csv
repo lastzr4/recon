@@ -1,0 +1,7 @@
+Inv_Num,Customer Name,Inv_Date,Amount,Notes
+INV001,Alpha Sdn Bhd,2026-01-01,1000,Paid
+INV002,Beta Enterprise,15/01/2026,2500.50,Pending
+INV003,Gamma Trading,20/01/2026,800.00,Paid
+INV004,Delta Corp,25/01/2026,3200.00,Paid
+INV006,Zeta Holdings,30/01/2026,1800.00,Paid
+INV007,Theta Resources,02/02/2026,950.00,Paid
