@@ -26,3 +26,8 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=20s --retries=3 \
     CMD curl -f "http://localhost:${PORT:-8080}/_stcore/health" || exit 1
 
 CMD ["sh", "-c", "streamlit run app.py --server.port=${PORT:-8080} --server.address=0.0.0.0 --server.headless=true"]
+
+# Note: Railway's "startCommand" (railway.json / dashboard) takes precedence
+# over this CMD and is executed WITHOUT a shell, so it must explicitly wrap
+# itself in `sh -c "..."` for ${PORT} expansion to work. This CMD is the
+# fallback used when no startCommand override is set.
